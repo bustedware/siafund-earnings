@@ -1,0 +1,10 @@
+siafund/node_modules
+siafund/index.mjs
+iac/.terraform
+iac/.terraform.lock.hcl
+iac/terraform.tfvars
+iac/terraform.tfstate
+iac/terraform.tfstate.backup
+siafund.zip
+lambda_layer.zip
+test/
