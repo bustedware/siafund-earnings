@@ -6,6 +6,7 @@ from threading import Thread
 
 last_sf = 0
 snapshot_interval = 5 #minute(s)
+n_siafunds = 10000
 
 # H     hasting 0.000000000000000000000001 SC   10^-24 SC
 # pS    pico    0.000000000001             SC   10^-12 SC
@@ -20,20 +21,19 @@ snapshot_interval = 5 #minute(s)
 
 daoclient = pymongo.MongoClient(os.getenv("mdbconnstr"))
 def getsiafundclaim():
-    result = requests.get("http://"+os.getenv("siahost")+"/wallet", headers={"User-Agent": "Sia-Agent"}).json()
-    sf_claim_balance = Decimal(result['siacoinclaimbalance'])
-    sf_balance = int(result['siafundbalance'])
-    return sf_claim_balance, sf_balance
+    result = requests.get("http://"+os.getenv("siahost")+"/api/consensus/tipstate", auth=("", os.getenv("apipwd"))).json()
+    sf_claim_balance = Decimal(result['siafundPool'])
+    return sf_claim_balance
 
 while True:
     main_ts_start = time.time()
     try:
-        sf, sfb = getsiafundclaim()
+        sf = getsiafundclaim()
         if last_sf == 0:
             last_sf = sf
             print("first: [" + str(datetime.now()) + "] [" + str(last_sf) + "]")
         else:
-            delta = (sf - last_sf) / sfb
+            delta = (sf - last_sf) / n_siafunds
             last_sf = sf
             print("delta: [" + str(datetime.now()) + "] [" + str(last_sf) + "] [" + str(delta) + "]")
             daoclient["crypto"]["sia"].insert_one({
