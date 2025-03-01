@@ -1,0 +1,17 @@
+[Unit]
+Description=Send Sia Info to MongoDB
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/earnings.py
+Environment=mdbconnstr="mongodb+srv://un:pwd@mongohost/admin?retryWrites=true&w=majority"
+Environment=siahost="localhost:9980"
+Environment=apipwd="hostsarecool"
+WorkingDirectory=/usr/local/bin/
+StandardOutput=append:/var/log/pysia.log
+StandardError=append:/var/log/pysia.log
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
