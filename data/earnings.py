@@ -22,7 +22,7 @@ n_siafunds = 10000
 daoclient = pymongo.MongoClient(os.getenv("mdbconnstr"))
 def getsiafundclaim():
     result = requests.get("http://"+os.getenv("siahost")+"/api/consensus/tipstate", auth=("", os.getenv("apipwd"))).json()
-    sf_claim_balance = Decimal(result['siafundPool'])
+    sf_claim_balance = Decimal(result['siafundTaxRevenue'])
     return sf_claim_balance
 
 while True:
