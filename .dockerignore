@@ -1,0 +1,8 @@
+data/
+siafund/
+iac
+.env
+logs
+node_modules
+README.md.local
+apps/data

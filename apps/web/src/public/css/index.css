@@ -1,0 +1,212 @@
+body {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    /* Ensures text is readable on a dark background */
+    font-family: Arial, sans-serif;
+}
+
+.summary-container {
+    width: 50%;
+    max-width: 50%;
+    margin: 2%;
+    padding: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    margin: 2%;
+}
+
+.charts {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.chart-container {
+    width: 49.5%;
+    height: 400px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.price-info div span:last-child {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.price-info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.left-half,
+.right-half {
+    width: 50%;
+}
+
+.left-half {
+    display: flex;
+    align-items: center;
+}
+
+.left-side-image {
+    max-height: 100%;
+    /* Ensure the image fits within the left half */
+    max-width: 100%;
+}
+
+.price-info {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+}
+
+.price-info div {
+    background-color: #3b3b3b;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 10px;
+    width: 25%;
+    height: 150px;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.price-info div span:last-child {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.crypto-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.qr-code {
+    text-align: center;
+    margin: 10px;
+}
+
+.qr-code img {
+    max-width: 100%;
+    height: auto;
+}
+
+.crypto-address {
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+a {
+    color: #22A15C;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.left-side-image {
+    max-height: 150px;
+}
+
+.header-info {
+    padding-left: 10px;
+}
+
+.faq-donate-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0;
+    align-items: start;
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.faq-content {
+    min-width: 0;
+    padding-right: 24px;
+}
+
+.faq-donate-layout .crypto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 24px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.faq-donate-layout .crypto-container h3 {
+    width: 100%;
+    margin: 24px 0 16px;
+    text-align: center;
+}
+
+.faq-donate-layout .qr-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+
+.faq-donate-layout .qr-code img {
+    display: block;
+    float: none;
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 16px;
+}
+
+.faq-donate-layout .crypto-address {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .faq-donate-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-content {
+        padding-right: 0;
+    }
+}
+
+.faq-donate-layout .faq-content {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.faq-donate-layout .faq-content .summary-container {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 24px;
+    padding: 0;
+    box-sizing: border-box;
+}

@@ -23,22 +23,23 @@ daoclient = pymongo.MongoClient(os.getenv("mdbconnstr"))
 def getsiafundclaim():
     result = requests.get("http://"+os.getenv("siahost")+"/api/consensus/tipstate", auth=("", os.getenv("apipwd"))).json()
     sf_claim_balance = Decimal(result['siafundTaxRevenue'])
-    return sf_claim_balance
+    return sf_claim_balance, result['index']['height']
 
 while True:
     main_ts_start = time.time()
     try:
-        sf = getsiafundclaim()
+        sf, height = getsiafundclaim()
         if last_sf == 0:
             last_sf = sf
-            print("first: [" + str(datetime.now()) + "] [" + str(last_sf) + "]")
+            print("first: [" + str(datetime.now()) + "] [" + str(last_sf) + "] [" + str(height) + ']')
         else:
             delta = (sf - last_sf) / n_siafunds
             last_sf = sf
-            print("delta: [" + str(datetime.now()) + "] [" + str(last_sf) + "] [" + str(delta) + "]")
+            print("delta: [" + str(datetime.now()) + "] [" + str(last_sf) + "] [" + str(delta) + "] [" + str(height) + ']')
             daoclient["crypto"]["sia"].insert_one({
                 "amount": Decimal128(delta),
-                "timestamp": datetime.now()
+                "timestamp": datetime.now(),
+                "height": height,
             })
     except Exception:
         print("an error occurred")

@@ -1,0 +1,30 @@
+{
+  "name": "siafund-earnings",
+  "version": "1.0.0",
+  "description": "1) windows command prompt\r 2) node main.js",
+  "main": "apps/web/src/main.js",
+  "imports": {
+    "#infra/*": "./packages/infra/src/*.js",
+    "#routes/*": "./apps/web/src/routes/*.js"
+  },
+  "dependencies": {
+    "@aws-sdk/credential-provider-node": "^3.972.85",
+    "@aws-sdk/credential-providers": "^3.1149.0",
+    "aws4": "^1.13.2",
+    "axios": "^1.20.0",
+    "cookie-parser": "^1.4.7",
+    "dateformat": "^5.0.3",
+    "dotenv": "^17.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "log4js": "^6.9.1",
+    "mongodb": "6.21",
+    "nodemon": "^2.0.15"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --watch apps/web/src --watch packages --ext js --ignore tests --ignore apps/web/src/public apps/web/src/main.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

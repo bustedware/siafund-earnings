@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SiaFund Earnings</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/themes/dark-unica.js"></script>
+    <link href="/css/index.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5733327897358820"
+     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-5733327897358820">
+</head>
+<body>
+    <div class="content">
+    <div class="price-info-container">
+      <div class="left-half">
+        <img
+          src="/images/siafunds.png"
+          alt="Image" class="left-side-image">
+        <div class="header-info">
+          <h1>SiaFunds.org</h1>
+          <div style="font-size:small;"><i><b>Funded on a grant by the Sia Foundation - <a href="https://sia.tech/grants">https://sia.tech/grants</a></b></i></div>
+        </div>
+      </div>
+      <div class="right-half">
+        <div class="price-info">
+          <div>
+            <span>Avg Earnings/Hour</span>
+            <span id="averageHourlyMilliSC"></span>
+          </div>
+          <div>
+            <span>Avg Earnings/Day</span>
+            <span id="averageDailyMilliSC"></span>
+          </div>
+          <div>
+            <span>Current Siacoin Price</span>
+            <span>$<%- scPrice %></span>
+          </div>
+          <div>
+            <span>Total Earned (30d)</span>
+            <span id="totalEarned"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="charts">
+        <div id="container1" class="chart-container highcharts-dark"></div>
+        <div id="container2" class="chart-container highcharts-dark"></div>
+      </div>
+    </div>
+    <div class="faq-donate-layout">
+    <div class="faq-content">
+        <div class="summary-container">
+            <h1>FAQ</h1>
+            <h3>What are SiaFunds?</h3>
+            SiaFunds are tokens used for revenue sharing within the Sia network, allocating a 3.9% fee from every storage-related transaction to Siafund holders. Initially, around 1,400 SiaFunds were distributed to investors, with Skynet Labs holding the remaining 8,600. These funds come from various fees and are equally distributed among holders upon contract completion. SiaFunds were created to provide sustainable funding for the network's development, incentivizing support and enhancement by capturing a portion of its revenue as the user base grows.
+        </div>
+
+        <div class="summary-container">
+            <h3>How do I get SiaFunds?</h3>
+            Historically, SiaFunds were acquired through over-the-counter (OTC) trades
+            using a trusted escrow service. The Sia Foundation later developed the
+            <a href="https://github.com/SiaFoundation/embarcadero"
+            target="_blank" rel="noopener noreferrer">Embarcadero</a>
+            trading utility, which is now archived.
+            To discuss buying or selling SiaFunds, visit the 
+            <a href="https://discord.com/channels/809849352516141067/1503502631111229641" target="_blank" rel="noopener noreferrer">#trading-and-food</a>
+            SiaFunds thread in the <a href="https://discord.gg/sia" target="_blank" rel="noopener noreferrer">Sia Discord</a>.
+        </div>
+    </div>
+
+    <div class="crypto-container">
+        <h3>Donate to support this site!</h3>
+        <div class="qr-code">
+            <img src="/images/sf-btc-address.png" alt="Bitcoin donation QR code">
+            <div class="crypto-address">3Ns7qu75QfEr4vhN3vo9A49bPVhJuRWDR9</div>
+        </div>
+    </div>
+</div>
+    <script>
+        const scPrice = <%- scPrice %>;
+        const hourlyChart = Highcharts.chart('container1', {
+            chart: {
+                type: 'line',
+                backgroundColor: '#2b2b2b',
+                zooming: {
+                    type: 'x'
+                }
+            },
+            title: {
+                text: 'Earnings by Hour (SC)'
+            },
+            credits: {
+                enabled: false
+            },
+            legend:{ enabled:false },
+            xAxis: {
+                type: 'datetime',
+            },
+            yAxis: {
+                title: {
+                    text: 'Amount (SC)'
+                }
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function () {
+                            let threshold = 1; // Replace with your threshold value
+                            if (this.y > threshold) {
+                                return Highcharts.numberFormat(this.y, 2);
+                            }
+                            return null;
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Amount',
+                color: '#22A15C',
+                data: []
+            }]
+        });
+
+        const dailyChart = Highcharts.chart('container2', {
+            chart: {
+                type: 'line',
+                backgroundColor: '#2b2b2b',
+            },
+            title: {
+                text: 'Earnings by Day (SC)'
+            },
+            credits: {
+                enabled: false
+            },
+            legend:{ enabled:false },
+            xAxis: {
+                type: 'datetime',
+            },
+            yAxis: {
+                title: {
+                    text: 'Amount (SC)'
+                }
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.2f}'
+                    }
+                }
+            },
+            series: [{
+                name: 'Amount',
+                color: '#22A15C',
+                data: []
+            }]
+        });
+
+        async function loadEarnings() {
+            hourlyChart.showLoading('Loading earnings…');
+            dailyChart.showLoading('Loading earnings…');
+            try {
+                const response = await fetch('/api/earnings?days=30');
+
+                if (!response.ok) {
+                    throw new Error('Could not load earnings');
+                }
+
+                const data = await response.json();
+
+                hourlyChart.series[0].setData(data.hourly);
+                dailyChart.series[0].setData(data.daily);
+
+                hourlyChart.hideLoading();
+                dailyChart.hideLoading();
+
+                document.getElementById('averageHourlyMilliSC').innerHTML = `${data.averageHourlyMilliSC.toFixed(2)} SC`;
+                document.getElementById('averageDailyMilliSC').innerHTML = `${data.averageDailyMilliSC.toFixed(2)} SC`;
+                document.getElementById('totalEarned').innerHTML = `$${(data.totalSC * scPrice).toFixed(2)}`;
+            } catch (error) {
+                console.error(error);
+                hourlyChart.showLoading('Unable to load earnings.');
+                dailyChart.showLoading('Unable to load earnings.');
+            }
+        }
+        loadEarnings();
+    </script>
+</body>
+</html>
