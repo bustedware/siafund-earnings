@@ -1,15 +1,16 @@
 body {
     background-color: #2b2b2b;
     color: #ffffff;
-    /* Ensures text is readable on a dark background */
     font-family: Arial, sans-serif;
 }
 
-.summary-container {
-    width: 50%;
-    max-width: 50%;
-    margin: 2%;
-    padding: 0;
+a {
+    color: #22A15C;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .content {
@@ -18,6 +19,107 @@ body {
     align-items: flex-start;
     box-sizing: border-box;
     margin: 2%;
+}
+
+.price-info-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.left-half,
+.right-half {
+    width: 50%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.left-half {
+    display: flex;
+    align-items: center;
+}
+
+.left-side-image {
+    display: block;
+    max-height: 150px;
+    max-width: 100%;
+    width: auto;
+}
+
+.header-info {
+    min-width: 0;
+    padding-left: 10px;
+}
+
+.grant-info {
+    font-size: small;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.right-half {
+    padding-left: 10px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: 120px 62px;
+    gap: 10px;
+    height: 192px;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px;
+    background-color: #3b3b3b;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 1.2em;
+    line-height: 1.2;
+}
+
+.stat-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 1.2em;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.last-updated-box {
+    grid-column: span 3;
+    font-size: 1em;
+    line-height: 1.3;
+}
+
+.total-sc-box {
+    gap: 4px;
+    padding: 6px 10px;
+}
+
+.total-sc-box .stat-label {
+    font-size: 0.85em;
+}
+
+.total-sc-box .stat-value {
+    flex: none;
+    margin-top: 0;
+    font-size: 1em;
 }
 
 .charts {
@@ -33,104 +135,12 @@ body {
     border-radius: 10px;
     box-sizing: border-box;
     padding-top: 10px;
-}
-
-.price-info div span:last-child {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.price-info-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.left-half,
-.right-half {
-    width: 50%;
-}
-
-.left-half {
-    display: flex;
-    align-items: center;
-}
-
-.left-side-image {
-    max-height: 100%;
-    /* Ensure the image fits within the left half */
-    max-width: 100%;
-}
-
-.price-info {
-    display: flex;
-    justify-content: right;
-    width: 100%;
-}
-
-.price-info div {
-    background-color: #3b3b3b;
-    border: 1px solid #d3d3d3;
-    border-radius: 10px;
-    padding: 20px;
-    margin-left: 10px;
-    width: 25%;
-    height: 150px;
-    font-size: 1.2em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.price-info div span:last-child {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.crypto-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-.qr-code {
-    text-align: center;
-    margin: 10px;
-}
-
-.qr-code img {
-    max-width: 100%;
-    height: auto;
-}
-
-.crypto-address {
-    margin-top: 10px;
-    word-wrap: break-word;
-}
-
-a {
-    color: #22A15C;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.left-side-image {
-    max-height: 150px;
-}
-
-.header-info {
-    padding-left: 10px;
+    overflow: hidden;
 }
 
 .faq-donate-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0;
     align-items: start;
     width: 100%;
     padding: 24px;
@@ -138,30 +148,39 @@ a:hover {
 }
 
 .faq-content {
+    width: 100%;
     min-width: 0;
-    padding-right: 24px;
+    padding: 0 24px 0 20px;
+    box-sizing: border-box;
 }
 
-.faq-donate-layout .crypto-container {
+.summary-container {
+    display: block;
+    width: 100%;
+    margin: 0 0 24px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.crypto-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    max-width: none;
+    min-width: 0;
     margin: 0;
     padding: 0 24px;
     box-sizing: border-box;
     text-align: center;
 }
 
-.faq-donate-layout .crypto-container h3 {
+.crypto-container h3 {
     width: 100%;
     margin: 24px 0 16px;
-    text-align: center;
 }
 
-.faq-donate-layout .qr-code {
+.qr-code {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -169,44 +188,89 @@ a:hover {
     margin: 0;
 }
 
-.faq-donate-layout .qr-code img {
+.qr-code img {
     display: block;
-    float: none;
     width: 180px;
     max-width: 100%;
     height: auto;
     margin: 0 auto 16px;
 }
 
-.faq-donate-layout .crypto-address {
+.crypto-address {
     max-width: 100%;
+    margin-top: 10px;
     overflow-wrap: anywhere;
-    text-align: center;
     font-size: 12px;
 }
 
+@media (max-width: 1100px) {
+    .stat-label,
+    .stat-value {
+        font-size: 1em;
+    }
+
+    .stat-box {
+        padding: 8px;
+    }
+
+    .total-sc-box {
+        padding: 6px;
+    }
+}
+
 @media (max-width: 768px) {
+    .price-info-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .left-half,
+    .right-half {
+        width: 100%;
+    }
+
+    .right-half {
+        padding-left: 0;
+    }
+
+    .left-side-image {
+        max-width: 30%;
+        height: auto;
+    }
+
+    .charts {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .chart-container {
+        width: 100%;
+    }
+
     .faq-donate-layout {
         grid-template-columns: 1fr;
     }
 
     .faq-content {
-        padding-right: 0;
+        padding: 0;
     }
 }
 
-.faq-donate-layout .faq-content {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    box-sizing: border-box;
-}
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: 110px 110px auto auto;
+        height: auto;
+    }
 
-.faq-donate-layout .faq-content .summary-container {
-    display: block;
-    width: 100%;
-    max-width: none;
-    margin: 0 0 24px;
-    padding: 0;
-    box-sizing: border-box;
+    .last-updated-box {
+        grid-column: 1 / -1;
+        min-height: 62px;
+    }
+
+    .total-sc-box {
+        grid-column: 1 / -1;
+        min-height: 62px;
+    }
 }

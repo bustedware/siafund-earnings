@@ -4,8 +4,9 @@ const index_routes = express.Router()
 
 index_routes.get('/', async function(req, res, next) {
     const price = await getKrakenPrice()
+    console.log(price)
     return res.render('pages/index', {
-        scPrice: price["result"]["SCUSD"]["o"]
+        scPrice: price["result"]["SCUSD"]["c"][0]
     })
 })
 
